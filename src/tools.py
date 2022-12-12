@@ -30,18 +30,21 @@ def gpt2_test(task_file):
     Returns:
         list: list of generated output words based on the prompts. 
     """
+    print("creating list of tasks")
     list_tasks = load_tasks(task_file)
 
-    gpt2_generator = pipeline('text-generation', model = 'gpt2')
+    print("preparing pipeline")
+    gpt2_generator = pipeline('text-generation', model = 'gpt2', pad_token_id=50256)
 
     outputs = []
+    print("looping over tasks")
     for task in list_tasks:
         set_seed(1999)
 
         temp_out = gpt2_generator(task, max_new_tokens = 1)
 
         outputs.append(temp_out[0]['generated_text'].split(' ')[-1])
-
+    print("returning output")
     output = dict(zip(list_tasks, outputs))
 
     return output
@@ -58,7 +61,7 @@ def gpt3_test(task_file):
     """
     with open('api.txt') as f:
         openai.api_key = f.read()
-        
+
     list_tasks = load_tasks(task_file)
 
     outputs = []

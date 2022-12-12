@@ -25,10 +25,13 @@ def arg_inputs():
     return args
 
 def main():
+    print("initializing arguments")
     arguments = arg_inputs()
+    print("getting ready to test model")
     output = perform_test(model = arguments.language_model, 
                           file_name = arguments.task_file)
 
+    print("saving output")
     if type(output) == str:
         print(output)
 
