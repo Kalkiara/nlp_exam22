@@ -30,21 +30,17 @@ def gpt2_test(task_file):
     Returns:
         list: list of generated output words based on the prompts. 
     """
-    print("creating list of tasks")
     list_tasks = load_tasks(task_file)
-
-    print("preparing pipeline")
+    print("initializing pipeline and getting output")
     gpt2_generator = pipeline('text-generation', model = 'gpt2', pad_token_id=50256)
 
     outputs = []
-    print("looping over tasks")
     for task in list_tasks:
         set_seed(1999)
 
         temp_out = gpt2_generator(task, max_new_tokens = 1)
 
         outputs.append(temp_out[0]['generated_text'].split(' ')[-1])
-    print("returning output")
     output = dict(zip(list_tasks, outputs))
 
     return output
@@ -65,17 +61,19 @@ def gpt3_test(task_file):
     list_tasks = load_tasks(task_file)
 
     outputs = []
-    for task in list_tasks:
-        set_seed(1999)
+    print("initializing model and getting output")
 
+    for task in list_tasks:
         response = openai.Completion.create(
                 model="text-davinci-003",
                 prompt=task,
-                temperature=0.6,
+                temperature=0.4, #changed from 0.6, FIX AND TEST
                 max_tokens=1,
                 top_p=1,
                 frequency_penalty=1,
-                presence_penalty=1
+                presence_penalty=1,
+                seed = 1999
+                #logprobs = 5 # FIX THIS FOR OTHER MODELS AS WELL SO OUTPUT IS SAVED PROPERLY
                 )
         outputs.append(response['choices'][0]['text'].strip())
     output = dict(zip(list_tasks, outputs))
@@ -92,6 +90,8 @@ def bert_base_test(task_file):
         list: list of generated tokens for each [MASK] in each task.
     """
     list_tasks = load_tasks(task_file)
+    print("initializing pipeline and getting output")
+
     bert_base_pipe = pipeline('fill-mask', model='bert-base-uncased')
     outputs = []
     for task in list_tasks:
@@ -112,12 +112,13 @@ def bert_large_test(task_file):
         list: list of generated tokens for each [MASK] in each task.
     """
     list_tasks = load_tasks(task_file)
+    print("initializing pipeline and getting output")
 
-    bert_base_pipe = pipeline('fill-mask', model='bert-large-uncased')
+    bert_large_pipe = pipeline('fill-mask', model='bert-large-uncased')
     outputs = []
     for task in list_tasks:
         set_seed(1999)
-        temp_out = bert_base_pipe(task)
+        temp_out = bert_large_pipe(task)
         outputs.append(temp_out[0]['token_str'])
     output = dict(zip(list_tasks, outputs))
 
