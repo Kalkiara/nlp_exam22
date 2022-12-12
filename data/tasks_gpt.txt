@@ -2,7 +2,7 @@ Mixing red and blue will create the color
 Mixing blue and yellow will create the color
 Mixing white and red will create the color
 Mixing red and yellow will create the color
-To make a blue color darker, you need to add
+To make a blue color darker, you need to add the color
 To get teal or aqua, mix green and
 Purple and green both have in them the color
 The complementary color of red is

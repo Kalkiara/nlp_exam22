@@ -2,7 +2,7 @@ Mixing red and blue will create the color [MASK].
 Mixing blue and yellow will create the color [MASK].
 Mixing white and red will create the color [MASK].
 Mixing red and yellow will create the color [MASK].
-To make a blue color darker, you need to add [MASK].
+To make a blue color darker, you need to add the color [MASK].
 To get teal or aqua, mix green and [MASK].
 Purple and green both have in them the color [MASK].
 The complementary color of red is [MASK].
