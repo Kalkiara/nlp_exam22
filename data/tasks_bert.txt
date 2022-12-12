@@ -1,0 +1,27 @@
+Mixing red and blue will create the color [MASK].
+Mixing blue and yellow will create the color [MASK].
+Mixing white and red will create the color [MASK].
+Mixing red and yellow will create the color [MASK].
+To make a blue color darker, you need to add [MASK].
+To get teal or aqua, mix green and [MASK].
+Purple and green both have in them the color [MASK].
+The complementary color of red is [MASK].
+Yellow is to purple what blue is to [MASK].
+The color of the lemon was a vibrant [MASK].
+The grass was wellkept and well watered, so its color was very [MASK].
+The color of the sky was [MASK].
+The strawberries looked perfectly ripe with their deep shade of [MASK].
+She was so angry, she saw the color [MASK].
+It had been a rough couple of days, so Timothy felt like the color [MASK].
+John was having a such a bad day, his mood seemed to be colored [MASK].
+She didn’t see it coming, as the incident happened out of the color [MASK].
+As the legislation had yet to be implemented, the color of the area was still very [MASK].
+The color of the skilled gardener’s thumbs was [MASK].
+The lie was so innocent, it had the color [MASK].
+She was so angry, she saw [MASK].
+It had been a rough couple of days so Timothy was feeling [MASK].
+John was having a such a bad day, his mood was very [MASK].
+She didn’t see it coming, as the incident happened out of the [MASK].
+As the legislation had yet to be implemented, the area was still [MASK].
+The skilled gardener’s thumbs were [MASK].
+A lie which will not hurt anyone is [MASK].
