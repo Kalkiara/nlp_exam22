@@ -35,11 +35,14 @@ The organization of the project is as follows:
 You can run and reproduce results of masked word prediction across models by cloning the GitHub repository, generating an OpenAI access API key, and running the command line code as provided below.
 
 ### Generate and set up OpenAI API key
+
+Generate your OpenAI API key at
 ```
-Generate your OpenAI API key at https://beta.openai.com/account/api-keys
-Paste your personal API key in the txt file called "api.txt"
+https://beta.openai.com/account/api-keys
 
 ```
+Paste your personal API key in the txt file called "api.txt"
+
 ### Run code:
 ```
 bash run.sh xxx something something
