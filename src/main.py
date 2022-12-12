@@ -19,7 +19,7 @@ def arg_inputs():
                         "--output_filename",
                         type=str,
                         required=True,
-                        help="the filename of the outputs, has to end with.csv")
+                        help="the filename of the outputs, has to end with .csv")
     args = my_parser.parse_args()
     # return list of arguments
     return args
@@ -27,7 +27,7 @@ def arg_inputs():
 def main():
     arguments = arg_inputs()
     output = perform_test(model = arguments.language_model, 
-                          file_name=arguments.task_file)
+                          file_name = arguments.task_file)
 
     if type(output) == str:
         print(output)

@@ -1,7 +1,6 @@
 import os
 import openai
 import torch
-import transformers
 from transformers import pipeline, set_seed
 import random
 import csv
@@ -14,7 +13,7 @@ def load_tasks(file_name):
                                 Each line should correspond to one task.
 
     Returns:
-        a list 
+        list: a list with the tasks
     """
     data_path = os.path.join("data", file_name)
     with open(data_path) as f:
@@ -57,7 +56,9 @@ def gpt3_test(task_file):
     Returns:
         outputs (list): list of generated output words based on the prompts.
     """
-    openai.api_key = "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"
+    with open('api.txt') as f:
+        openai.api_key = f.read()
+        
     list_tasks = load_tasks(task_file)
 
     outputs = []
