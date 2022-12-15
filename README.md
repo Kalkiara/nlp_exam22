@@ -2,10 +2,17 @@
 
 # Summary
 
-This repository is used for generating reproducible outputs from GPT2, GPT3, BERT base, and BERT large in terms of intrinsic color knowledge from a predefined set of diagnostics. See the corresponding exam paper.
+This repository is used for generating reproducible outputs from `GPT-2`, `GPT-3`, `BERT base`, and `BERT large` in terms of intrinsic color knowledge from a predefined set of diagnostics. See the corresponding exam paper.
 
-# Performance
-xxx do we want to highlight our output in table format here? 
+## Performance
+
+#### Overview of model performance
+Language model| GPT-2 | GPT-3 | BERT base | BERT large | 
+--- | --- | --- | --- |--- |
+Percentage colors provided | 14.18% | 59.3% | 48.1% | 48.1% |
+Percentage correct completions | 3.7% | 55.6% | 3.7% | 18.5% |
+
+csv files containing predictions of each model can also be found under the folder 'out', see below
 
 ## Project Organization
 The organization of the project is as follows:
@@ -24,6 +31,7 @@ The organization of the project is as follows:
 ├── src                      <- The main folder for scripts
 |   ├── tools.py             <- A script containing functions used for loading tasks and performing masked word prediction for GPT2, GPT3, BERT base and BERT large 
 |   └── main.py              <- A script containing the main function to access masked word prediction across models
+├── api.txt                  <- Empty txt file for your personal OpenAI API key
 ├── .gitignore               <- A list of files not uploaded to git
 ├── requirements.txt         <- A requirements file specifying the required packages
 └── run.sh                   <- Script to set up a virtual environment with the requirements from requirements.txt and run main.py 
@@ -31,34 +39,56 @@ The organization of the project is as follows:
 
 ```
 
-## Running the code
-You can run and reproduce results of masked word prediction across models by cloning the GitHub repository, generating an OpenAI access API key, and running the command line code as provided below.
+## Reproduce results
+You can run and reproduce results of masked word prediction across models by cloning the GitHub repository, generating an OpenAI access API key, and running the command line codes as provided below.
 
+#### Run the following in the terminal: 
+```
 sudo apt-get update
 sudo apt-get install python3-venv
-
-### Generate and set up OpenAI API key
+```
+#### Generate and set up OpenAI API key
 
 Generate your OpenAI API key at
 ```
 https://beta.openai.com/account/api-keys
+```
+Paste your personal API key in the txt file called "api.txt" 
+
+#### Run code
+Code should be run from the terminal sticking to the following structure:
 
 ```
-Paste your personal API key in the txt file called "api.txt"
+bash run.sh --language_model --task_file --output_filename
+```
+#### Parameter explanation:
+```
+--language_model (-lm): The name of the language model 
+(Options: gpt2, gpt3, bert-base-uncased, bert-large-uncased)
 
-### Run code:
-```
-bash run.sh xxx something something
+--task_file (-t): The name of the file containing tasks used for word prediction. Should correspond with the language model used 
+(Options: tasks_bert.txt, tasks_gpt.txt)
+
+--output_filename (-o): The name of the output file. Should end with the .csv extension 
 
 ```
-### Parameter explanation:
-```
-something: blablabla
-other_something: blablabal
+## Reproduce our findings
 
-```
-### To reproduce our findings:
-```
-bash run.sh xxx something_specific something_specific
+Copy and run the following to reproduce our findings for each of the language models:
 
+`GPT-2`  
+```
+bash run.sh gpt2 tasks_gpt.txt output_gpt2.csv
+```
+`GPT-3`  
+```
+bash run.sh gpt3 tasks_gpt.txt output_gpt3.csv
+```
+`BERT base`
+```
+bash run.sh bert-base-uncased tasks_bert.txt output_bert.csv
+```
+`BERT large`
+```
+bash run.sh bert-large-uncased tasks_bert.txt output_bert_l.csv
 ```
