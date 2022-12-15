@@ -21,7 +21,7 @@ def load_tasks(file_name):
     
     return lines
 
-def bert_test(task_file, model):
+def bert_test(model):
     
     """Text generation pipeline using BERT base and BERT large
 
@@ -31,7 +31,7 @@ def bert_test(task_file, model):
     Returns:
         list: list of generated output words based on the prompts. 
     """
-    list_tasks = load_tasks(task_file)
+    list_tasks = load_tasks('tasks_bert.txt')
     outputs = []
     
     print("initializing pipeline and getting output")
@@ -46,7 +46,7 @@ def bert_test(task_file, model):
 
     return output
 
-def gpt_test(task_file, model):
+def gpt_test(model):
 
     """Text generation pipeline using GPT-2 and 3
 
@@ -56,15 +56,15 @@ def gpt_test(task_file, model):
     Returns:
         list: list of generated output words based on the prompts. 
     """
-    list_tasks = load_tasks(task_file)
+    list_tasks = load_tasks('tasks_gpt.txt')
     outputs = []
 
     print("initializing pipeline and getting output")
 
     if model == 'gpt2':
-        set_seed(1999)
         generator = pipeline('text-generation', model = model, pad_token_id=50256)
         for task in list_tasks:
+            set_seed(1999)
             temp_out = generator(task, max_new_tokens = 1)
             outputs.append(temp_out[0]['generated_text'].split(' ')[-1])
 
@@ -80,15 +80,14 @@ def gpt_test(task_file, model):
                 top_p=1,
                 frequency_penalty=1,
                 presence_penalty=1,
-                seed = 1999
-                #logprobs = 5 # FIX THIS FOR OTHER MODELS AS WELL SO OUTPUT IS SAVED PROPERLY
-                )
+                seed = 1999)
+
             outputs.append(response['choices'][0]['text'].strip())
     
     output = dict(zip(list_tasks, outputs))
     return output
 
-def perform_test(model, file_name):
+def perform_test(model):
     """Test model knowledge of color using a list of tasks and a given LM. 
 
     Args:
@@ -102,10 +101,10 @@ def perform_test(model, file_name):
             if the specified model is not one we have tested, a string saying this is returned. 
     """
     if model == 'gpt2' or model == "gpt3":
-        output = gpt_test(task_file = file_name, model = model)        
+        output = gpt_test(model = model)        
 
     elif model == 'bert-base-uncased' or model == 'bert-large-uncased':
-        output = bert_test(task_file = file_name, model = model)
+        output = bert_test(model = model)
 
     else:
         output = "the model you chose does not correspond to a model we've tested"

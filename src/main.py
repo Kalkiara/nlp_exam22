@@ -10,11 +10,6 @@ def arg_inputs():
                         type=str,
                         required=True,
                         help="the name of an LM to test")
-    my_parser.add_argument("-t",
-                        "--task_file",
-                        type=str,
-                        required=True,
-                        help="The name of the file containing the tasks, should end with .txt with each line having one task")
     my_parser.add_argument("-o",
                         "--output_filename",
                         type=str,
@@ -28,8 +23,7 @@ def main():
     print("initializing arguments")
     arguments = arg_inputs()
     print("getting ready to test model")
-    output = perform_test(model = arguments.language_model, 
-                          file_name = arguments.task_file)
+    output = perform_test(model = arguments.language_model)
 
     print("saving output")
     if type(output) == str:
