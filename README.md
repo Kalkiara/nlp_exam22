@@ -34,6 +34,9 @@ The organization of the project is as follows:
 ## Running the code
 You can run and reproduce results of masked word prediction across models by cloning the GitHub repository, generating an OpenAI access API key, and running the command line code as provided below.
 
+sudo apt-get update
+sudo apt-get install python3-venv
+
 ### Generate and set up OpenAI API key
 
 Generate your OpenAI API key at

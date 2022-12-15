@@ -21,6 +21,29 @@ def load_tasks(file_name):
     
     return lines
 
+def bert_test(task_file, model):
+    
+    """Text generation pipeline using BERT base and BERT large
+
+    Args:
+        task_file (str): name of txt-file containing the masked token tasks. 
+
+    Returns:
+        list: list of generated output words based on the prompts. 
+    """
+    list_tasks = load_tasks(task_file)
+    outputs = []
+
+    generator = pipeline('fill-mask', model = model)
+    for task in list_tasks:
+        set_seed(1999)
+        temp_out = generator(task)
+        outputs.append(temp_out[0]['token_str'])
+
+    output = dict(zip(list_tasks, outputs))
+
+    return output
+
 def gpt_test(task_file, model):
 
     """Text generation pipeline using GPT-2 and 3
@@ -31,33 +54,26 @@ def gpt_test(task_file, model):
     Returns:
         list: list of generated output words based on the prompts. 
     """
-    if model == 'gpt3':
-
-        with open('api.txt') as f:
-            openai.api_key = f.read()
-
     list_tasks = load_tasks(task_file)
+    outputs = []
+
     print("initializing pipeline and getting output")
 
     if model == 'gpt2':
-        generator = pipeline('text-generation', model = model, pad_token_id=50256)
-
-    outputs = []
-
-    for task in list_tasks:
         set_seed(1999)
-
-        if model == "gpt2":
-        
+        generator = pipeline('text-generation', model = model, pad_token_id=50256)
+        for task in list_tasks:
             temp_out = generator(task, max_new_tokens = 1)
             outputs.append(temp_out[0]['generated_text'].split(' ')[-1])
-        
-        elif model == "gpt3":
-            
+
+    elif model == 'gpt3':
+        with open('api.txt') as f:
+            openai.api_key = f.read()
+        for task in list_tasks:
             response = openai.Completion.create(
                 model="text-davinci-003",
                 prompt=task,
-                temperature=0.4, #changed from 0.6, FIX AND TEST
+                temperature=0.6, 
                 max_tokens=1,
                 top_p=1,
                 frequency_penalty=1,
@@ -68,171 +84,14 @@ def gpt_test(task_file, model):
             outputs.append(response['choices'][0]['text'].strip())
     
     output = dict(zip(list_tasks, outputs))
-
     return output
-
-
-def bert_base_test(task_file):
-    """Fill masked token pipeline using BERT base, uncased. 
-
-    Args:
-        task_file (str): name of txt-file containing the tasks. 
-                         Defaults to our BERT masked token tasks. 
-    Returns:
-        list: list of generated tokens for each [MASK] in each task.
-    """
-    list_tasks = load_tasks(task_file)
-    print("initializing pipeline and getting output")
-
-    bert_base_pipe = pipeline('fill-mask', model='bert-base-uncased')
-    outputs = []
-    for task in list_tasks:
-        set_seed(1999)
-        temp_out = bert_base_pipe(task)
-        outputs.append(temp_out[0]['token_str'])
-    output = dict(zip(list_tasks, outputs))
-
-    return output
-
-def gpt2_test(task_file):
-    """Text generation pipeline using GPT-2
-
-    Args:
-        task_file (str): name of txt-file containing the tasks. 
-                         Defaults to our GPT prompt tasks. 
-    Returns:
-        list: list of generated output words based on the prompts. 
-    """
-    list_tasks = load_tasks(task_file)
-    print("initializing pipeline and getting output")
-    gpt2_generator = pipeline('text-generation', model = 'gpt2', pad_token_id=50256)
-
-    outputs = []
-    for task in list_tasks:
-        set_seed(1999)
-
-        temp_out = gpt2_generator(task, max_new_tokens = 1)
-
-        outputs.append(temp_out[0]['generated_text'].split(' ')[-1])
-    output = dict(zip(list_tasks, outputs))
-
-    return output
-
-def gpt3_test(task_file):
-    """Text generation pipeline using GPT-3
-
-    Args:
-        task_file (str): name of txt-file containing the tasks. 
-                         Defaults to our GPT prompt tasks. 
-
-    Returns:
-        outputs (list): list of generated output words based on the prompts.
-    """
-    with open('api.txt') as f:
-        openai.api_key = f.read()
-
-    list_tasks = load_tasks(task_file)
-
-    outputs = []
-    print("initializing model and getting output")
-
-    for task in list_tasks:
-        response = openai.Completion.create(
-                model="text-davinci-003",
-                prompt=task,
-                temperature=0.4, #changed from 0.6, FIX AND TEST
-                max_tokens=1,
-                top_p=1,
-                frequency_penalty=1,
-                presence_penalty=1,
-                seed = 1999
-                #logprobs = 5 # FIX THIS FOR OTHER MODELS AS WELL SO OUTPUT IS SAVED PROPERLY
-                )
-        outputs.append(response['choices'][0]['text'].strip())
-    output = dict(zip(list_tasks, outputs))
-
-    return output
-
-def bert_base_test(task_file):
-    """Fill masked token pipeline using BERT base, uncased. 
-
-    Args:
-        task_file (str): name of txt-file containing the tasks. 
-                         Defaults to our BERT masked token tasks. 
-    Returns:
-        list: list of generated tokens for each [MASK] in each task.
-    """
-    list_tasks = load_tasks(task_file)
-    print("initializing pipeline and getting output")
-
-    bert_base_pipe = pipeline('fill-mask', model='bert-base-uncased')
-    outputs = []
-    for task in list_tasks:
-        set_seed(1999)
-        temp_out = bert_base_pipe(task)
-        outputs.append(temp_out[0]['token_str'])
-    output = dict(zip(list_tasks, outputs))
-
-    return output
-
-def bert_large_test(task_file):
-    """Fill masked token pipeline using BERT large, uncased. 
-
-       Args:
-        task_file (str): name of txt-file containing the tasks. 
-                         Defaults to our BERT masked token tasks. 
-    Returns:
-        list: list of generated tokens for each [MASK] in each task.
-    """
-    list_tasks = load_tasks(task_file)
-    print("initializing pipeline and getting output")
-
-    bert_large_pipe = pipeline('fill-mask', model='bert-large-uncased')
-    outputs = []
-    for task in list_tasks:
-        set_seed(1999)
-        temp_out = bert_large_pipe(task)
-        outputs.append(temp_out[0]['token_str'])
-    output = dict(zip(list_tasks, outputs))
-
-    return output
-
-# def perform_test(model, file_name):
-#     """Test model knowledge of color using a list of tasks and a given LM. 
-
-#     Args:
-#         list_tasks (list): list of tasks created using load_tasks().
-#         model (str): Name of an LM to test. Defaults to GPT-2
-
-#     Returns:
-#         dictionary or str: 
-#             if the specified model is one we have tested, 
-#             a dictionary with tasks and the generated word for the given task is returned. 
-#             if the specified model is not one we have tested, a string saying this is returned. 
-#     """
-#     if model == 'gpt2' or 'gpt3':
-#         output = gpt_test(task_file = file_name, model = model)
-        
-#     # elif model == 'gpt3':
-#     #     output = gpt3_test(task_file = file_name)        
-
-#     elif model == 'bert_base':
-#         output = bert_base_test(task_file = file_name)
-
-#     elif model == 'bert_large':
-#         output = bert_large_test(task_file = file_name)
-
-#     else:
-#         output = "the model you chose does not correspond to a model we've tested"
-
-#     return output
 
 def perform_test(model, file_name):
     """Test model knowledge of color using a list of tasks and a given LM. 
 
     Args:
         list_tasks (list): list of tasks created using load_tasks().
-        model (str): Name of an LM to test. Defaults to GPT-2
+        model (str): Name of an LM to test.
 
     Returns:
         dictionary or str: 
@@ -240,17 +99,11 @@ def perform_test(model, file_name):
             a dictionary with tasks and the generated word for the given task is returned. 
             if the specified model is not one we have tested, a string saying this is returned. 
     """
-    if model == 'gpt2':
-        output = gpt2_test(task_file = file_name)
-        
-    elif model == 'gpt3':
-        output = gpt3_test(task_file = file_name)        
+    if model == 'gpt2' or model == "gpt3":
+        output = gpt_test(task_file = file_name, model = model)        
 
-    elif model == 'bert_base':
-        output = bert_base_test(task_file = file_name)
-
-    elif model == 'bert_large':
-        output = bert_large_test(task_file = file_name)
+    elif model == 'bert-base-uncased' or model == 'bert-large-uncased':
+        output = bert_test(task_file = file_name, model = model)
 
     else:
         output = "the model you chose does not correspond to a model we've tested"
@@ -273,7 +126,7 @@ def save_output(output, output_filename):
     with open(out_path, "w") as csv_file:
         writer = csv.writer(csv_file, delimiter =";",quoting=csv.QUOTE_MINIMAL)
         for key, val in output.items():
-        # write every key and value to file
+            # write every key and value to file
             key = key.replace(' [MASK].', "")
             writer.writerow([key, val])
 
