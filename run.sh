@@ -8,6 +8,6 @@ source ./env/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 
-python3 src/main.py -lm 'gpt2' -t 'tasks_gpt.txt' -o 'output.csv'
+python3 src/main.py -lm $1 -t $2 -o $3
 
 deactivate
