@@ -33,6 +33,8 @@ def bert_test(task_file, model):
     """
     list_tasks = load_tasks(task_file)
     outputs = []
+    
+    print("initializing pipeline and getting output")
 
     generator = pipeline('fill-mask', model = model)
     for task in list_tasks:
