@@ -40,7 +40,7 @@ The organization of the project is as follows:
 ```
 
 ## Reproduce results
-You can run and reproduce results of masked word prediction across models by cloning the GitHub repository, generating an OpenAI access API key, and running the command line codes as provided below.
+You can run and reproduce results of word prediction across models by cloning the GitHub repository, generating an OpenAI access API key, and running the command line codes as provided below.
 
 #### Run the following in the terminal: 
 ```
@@ -59,15 +59,12 @@ Paste your personal API key in the txt file called "api.txt"
 Code should be run from the terminal sticking to the following structure:
 
 ```
-bash run.sh --language_model --task_file --output_filename
+bash run.sh --language_model --output_filename
 ```
 #### Parameter explanation:
 ```
 --language_model (-lm): The name of the language model 
 (Options: gpt2, gpt3, bert-base-uncased, bert-large-uncased)
-
---task_file (-t): The name of the file containing tasks used for word prediction. Should correspond with the language model used 
-(Options: tasks_bert.txt, tasks_gpt.txt)
 
 --output_filename (-o): The name of the output file. Should end with the .csv extension 
 
