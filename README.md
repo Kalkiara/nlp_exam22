@@ -9,8 +9,8 @@ This repository is used for generating reproducible outputs from `GPT-2`, `GPT-3
 #### Overview of model performance
 Language model| GPT-2 | GPT-3 | BERT base | BERT large | 
 --- | --- | --- | --- |--- |
-Percentage colors provided | 14.18% | 59.3% | 48.1% | 48.1% |
-Percentage correct completions | 3.7% | 55.6% | 3.7% | 18.5% |
+Percentage colors provided | 22.2% | 59.3% | 51.9% | 48.1% |
+Percentage correct completions | 7.4% | 55.6% | 3.7% | 18.5% |
 
 csv files containing predictions of each model can also be found under the folder 'out', see below
 
