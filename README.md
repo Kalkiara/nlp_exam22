@@ -35,11 +35,9 @@ The organization of the project is as follows:
 ├── .gitignore               <- A list of files not uploaded to git
 ├── requirements.txt         <- A requirements file specifying the required packages
 └── run.sh                   <- Script to set up a virtual environment with the requirements from requirements.txt and run main.py 
-
-
 ```
 
-## Reproduce results
+## Reproducibility
 You can run and reproduce results of word prediction across models by cloning the GitHub repository, generating an OpenAI access API key, and running the command line codes as provided below.
 
 #### Run the following in the terminal: 
@@ -67,25 +65,24 @@ bash run.sh --language_model --output_filename
 (Options: gpt2, gpt3, bert-base-uncased, bert-large-uncased)
 
 --output_filename (-o): The name of the output file. Should end with the .csv extension 
-
 ```
-## Reproduce our findings
+## Reproduce the results
 
 Copy and run the following to reproduce our findings for each of the language models:
 
 `GPT-2`  
 ```
-bash run.sh gpt2 tasks_gpt.txt output_gpt2.csv
+bash run.sh gpt2 output_gpt2.csv
 ```
 `GPT-3`  
 ```
-bash run.sh gpt3 tasks_gpt.txt output_gpt3.csv
+bash run.sh gpt3 output_gpt3.csv
 ```
 `BERT base`
 ```
-bash run.sh bert-base-uncased tasks_bert.txt output_bert.csv
+bash run.sh bert-base-uncased output_bert.csv
 ```
 `BERT large`
 ```
-bash run.sh bert-large-uncased tasks_bert.txt output_bert_l.csv
+bash run.sh bert-large-uncased output_bert_l.csv
 ```
