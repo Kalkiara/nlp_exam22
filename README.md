@@ -12,7 +12,7 @@ Language model| GPT-2 | GPT-3 | BERT base | BERT large |
 Percentage colors provided | 22.2% | 59.3% | 51.9% | 48.1% |
 Percentage correct completions | 7.4% | 55.6% | 3.7% | 18.5% |
 
-csv files containing predictions of each model can also be found under the folder 'out', see below
+csv files containing the predictions of each model on each task can also be found under the folder 'out', see below
 
 ## Project Organization
 The organization of the project is as follows:
