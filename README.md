@@ -2,7 +2,7 @@
 
 # Summary
 
-This repository is used for generating reproducible outputs from `GPT-2`, `GPT-3`, `BERT base`, and `BERT large` in terms of intrinsic color knowledge from a predefined set of diagnostics. See the corresponding exam paper.
+This repository is used for generating reproducible outputs from `GPT-2`, `GPT-3`, `BERT base`, and `BERT large` in terms of color representation from a predefined set of diagnostics. See the corresponding exam paper.
 
 ## Performance
 
